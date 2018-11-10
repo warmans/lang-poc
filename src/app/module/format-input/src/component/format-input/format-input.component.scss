@@ -1,0 +1,27 @@
+.format-input {
+  font-family: monospace;
+  font-size : 1.2em;
+  white-space: pre;
+
+  .format {
+
+    .text {
+      color: #333;
+    }
+
+    .editable {
+      display: inline-block;
+      color: #73afea;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .editable:empty::before {
+      color: #ccc;
+      content: attr(title);
+    }
+
+    .editable:active, .editable:focus {
+      outline: none;
+    }
+  }
+}
