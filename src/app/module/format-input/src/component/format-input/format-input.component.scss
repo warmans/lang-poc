@@ -1,3 +1,7 @@
+$gender-masculine: #00f !default;
+$gender-feminine: #f0f !default;
+$gender-neutral: #333 !default;
+
 .format-input {
   font-family: monospace;
   font-size : 1.2em;
@@ -5,14 +9,21 @@
 
   .format {
 
-    .text {
-      color: #333;
+    .text, .editable {
+      color: $gender-neutral
     }
 
     .editable {
       display: inline-block;
-      color: #73afea;
       border-bottom: 1px dashed #ccc;
+    }
+
+    .editable.gender-masculine {
+      color: $gender-masculine;
+    }
+
+    .editable.gender-feminine {
+      color: $gender-feminine;
     }
 
     .editable:empty::before {

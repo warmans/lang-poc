@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Format, TokenConfig} from "../../module/format-input/src/component/format-input/format-input.component";
+import {Answer} from "../answer/answer.types";
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
 
@@ -15,6 +16,7 @@ export class CardComponent implements OnInit {
     this._question = q;
     this.initialize();
   }
+
   get question(): Format {
     return this._question;
   }
@@ -22,11 +24,12 @@ export class CardComponent implements OnInit {
   @Output()
   onNext: EventEmitter<null> = new EventEmitter<null>();
 
-  answersRaw: {[index: string]: string} = {};
+  answersRaw: { [index: string]: string } = {};
 
-  answers: {[index: string]: Answer} = {};
+  answers: { [index: string]: Answer } = {};
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.initialize();
@@ -50,7 +53,7 @@ export class CardComponent implements OnInit {
     return true;
   }
 
-  answersUpdated(answers: {[index: string]: string}) {
+  answersUpdated(answers: { [index: string]: string }) {
     for (let k in answers) {
       if (answers.hasOwnProperty(k)) {
         this.answers[k].given = answers[k];
@@ -59,7 +62,7 @@ export class CardComponent implements OnInit {
   }
 
   revealAnswers() {
-    let raw: {[index: string]: string} = {};
+    let raw: { [index: string]: string } = {};
     for (let k in this.answers) {
       if (this.answers.hasOwnProperty(k)) {
         this.answers[k].reveal();
@@ -81,45 +84,6 @@ export class CardComponent implements OnInit {
 
   next() {
     this.onNext.next();
-  }
-}
-
-class Answer {
-
-  case: string = '';
-
-  infinitive: string = '';
-
-  constructor(public tok: TokenConfig, public given: string) {
-  }
-
-  reveal() {
-    this.given = this.tok.contextual;
-    this.case = this.tok.case;
-    this.infinitive = this.tok.infinitive;
-  }
-
-  check() {
-    return this.checkContextual() && this.checkCase() && this.checkInfinitive();
-  }
-
-  checkContextual(): boolean {
-    return this.matchAnswer(this.tok.contextual, this.given)
-  }
-
-  checkCase(): boolean {
-    return this.case === this.tok.case;
-  }
-
-  checkInfinitive(): boolean {
-    return this.infinitive === this.tok.infinitive;
-  }
-
-  matchAnswer(expected: string, actual: string): boolean {
-    if (!expected || !actual) {
-      return false;
-    }
-    return expected.toLowerCase() === actual.trim().toLowerCase()
   }
 }
 

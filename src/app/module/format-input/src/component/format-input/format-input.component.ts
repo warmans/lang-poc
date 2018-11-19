@@ -73,15 +73,25 @@ export class FormatInputComponent implements OnInit, ControlValueAccessor {
     rendered.className = 'format';
 
     this.model.tokens.forEach((tok, i) => {
+
+      const classes: string[] = [];
+      classes.push(tok.type == TokenType.Editable ? ' editable' : 'text');
+      if (tok.conf.article) {
+        classes.push(`gender-${tok.conf.article}`);
+      }
+      if (tok.conf.case) {
+        classes.push(`case-${tok.conf.case}`);
+      }
+
       const tokEl = this.renderer.createElement('span');
-      tokEl.className = tok.type == TokenType.Editable ? ' editable' : 'text';
+      tokEl.className = classes.join(' ');
       tokEl.textContent = tok.type == TokenType.Text ? tok.text : tok.value;
       tokEl.contentEditable = (tok.type == TokenType.Editable);
       if (tok.conf.showPlaceholder === true) {
         tokEl.title = (tok.conf ? tok.conf.contextual : '');
         tokEl.placeholder = tok.text;
       }
-      tokEl.style = `min-width: ${tok.text.length}ch`;
+      tokEl.style = `min-width: ${tok.text.length}ch;`;
 
       tok.el = tokEl;
       this.renderer.appendChild(rendered, tokEl);

@@ -2,9 +2,13 @@
   <div class="row h-100">
     <div class="col ">
       <div class="row h-100">
-        <div class="d-flex h-100 w-100">
+        <div class="d-flex flex-row flex-nowrap h-100 w-100">
           <div class="justify-content-center align-self-center w-100">
-            <app-card [question]="currentQuestion" (onNext)="next()"></app-card>
+            <div *ngFor="let q of questions; let i = index;" class="w-100">
+              <div *ngIf="i === currentQuestionIndex" >
+                <app-card [question]="q" (onNext)="next()"></app-card>
+              </div>
+            </div>
           </div>
         </div>
       </div>

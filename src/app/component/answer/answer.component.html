@@ -1,0 +1,27 @@
+<div class="answer p-2 mb-2" @openCloseTrigger *ngIf="answer && answer.checkContextual()" [ngClass]="{'alert-success': answer.check(), 'alert-danger': !answer.check()}">
+  <div class="d-flex">
+  <div class="given py-1 px-2">
+  <strong>{{ answer.given }}</strong>
+  </div>
+    <div class="input-group input-group-sm" *ngIf="question.infinitive">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+           <select class="form-control form-control-sm" *ngIf="question.case" [(ngModel)]="answer.case">
+            <option value="">case</option>
+            <option value="accusative">Accusative</option>
+            <option value="dative">Dative</option>
+            <option value="nominative">Nominative</option>
+          </select>
+        </span>
+      </div>
+      <input
+        type="text"
+        placeholder="infinitive with article for nouns e.g. 'Der Hund' or 'Klein'"
+        class="form-control form-control-sm"
+        required
+        [(ngModel)]="answer.infinitive"
+        [ngClass]="{'is-valid': answer.checkInfinitive(), 'is-invalid': !answer.checkInfinitive()}"
+      >
+    </div>
+  </div>
+</div>

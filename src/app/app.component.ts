@@ -1,12 +1,30 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Format} from "./module/format-input/src/component/format-input/format-input.component";
+import {animate, group, query, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('slideAnimation', [
+      transition('* => *', group([
+        query(':enter', [
+          style({
+            transform: 'translateX(100%)'
+          }),
+          animate('0.5s ease-out')
+        ]),
+        query(':leave', [
+          animate('0.5s ease-out', style({
+            transform: 'translateX(-100%)'
+          }))
+        ], {optional: true})
+      ]))
+    ])
+  ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   questions: Format[] = [{
     eng: "Do you see the big man? Next to him is my brother.",
     translated: "Siehst du den {grossen} Mann? Daneben steht mein {Bruder}.",
@@ -16,7 +34,7 @@ export class AppComponent {
       infinitive: "Gross",
       case: "accusative",
       showPlaceholder: false,
-    },{
+    }, {
       contextual: "Bruder",
       eng: "brother",
       infinitive: "Der Bruder",
@@ -24,7 +42,7 @@ export class AppComponent {
       showPlaceholder: false,
       article: "masculine",
     }]
-  },{
+  }, {
     eng: "Tereza loves her animals very much.",
     translated: "Tereza liebt {ihre} {Tiere} sehr.",
     configs: [{
@@ -33,7 +51,7 @@ export class AppComponent {
       infinitive: "Ihr",
       case: "accusative",
       showPlaceholder: false,
-    },{
+    }, {
       contextual: "Tiere",
       eng: "animals",
       infinitive: "Die Tiere",
@@ -42,16 +60,17 @@ export class AppComponent {
     }]
   }];
 
-  currentQuestionIndex = 0;
+  currentQuestionIndex: number = 0;
 
-  currentQuestion: Format = this.questions[this.currentQuestionIndex];
 
   next() {
-
-    if (this.currentQuestionIndex === this.questions.length-1) {
+    if (this.currentQuestionIndex === this.questions.length - 1) {
       return;
     }
     this.currentQuestionIndex++;
-    this.currentQuestion = this.questions[this.currentQuestionIndex];
+  }
+
+  ngOnInit(): void {
+
   }
 }

@@ -3,41 +3,10 @@
     {{ question.eng }}
   </div>
   <div class="lower p-4 pb-2">
-
     <format-input [format]="question" [(ngModel)]="answersRaw" (ngModelChange)="answersUpdated($event)"></format-input>
-
     <div class="mt-4">
-      <div *ngFor="let t of question.configs">
-        <div class="answer p-2 mb-2" [ngClass]="{'alert-success': answers[t.contextual].check(), 'alert-danger': !answers[t.contextual].check()}">
-          <div class="overlay h-100" *ngIf="!answers[t.contextual].checkContextual()">
-            <div class="w-100 h-100 pt-2 px-2">{{ t.eng }}</div>
-          </div>
-          <div class="d-flex">
-            <div class="given py-1 px-2">
-              <strong>{{ answers[t.contextual].given }}</strong>
-            </div>
-            <div class="input-group input-group-sm" *ngIf="t.infinitive">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                   <select class="form-control form-control-sm" *ngIf="t.case" [(ngModel)]="answers[t.contextual].case">
-                    <option value="">case</option>
-                    <option value="accusative">Accusative</option>
-                    <option value="dative">Dative</option>
-                    <option value="nominative">Nominative</option>
-                  </select>
-                </span>
-              </div>
-              <input
-                type="text"
-                placeholder="infinitive with article for nouns e.g. 'Der Hund' or 'Klein'"
-                class="form-control form-control-sm"
-                required
-                [(ngModel)]="answers[t.contextual].infinitive"
-                [ngClass]="{'is-valid': answers[t.contextual].checkInfinitive(), 'is-invalid': !answers[t.contextual].checkInfinitive()}"
-              >
-            </div>
-          </div>
-        </div>
+      <div *ngFor="let q of question.configs">
+        <app-answer [question]="q" [answer]="answers[q.contextual]"></app-answer>
       </div>
     </div>
   </div>
