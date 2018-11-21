@@ -1,15 +1,18 @@
-<div class="container h-100">
+<nav class="navbar fixed-top bg-primary navbar-dark d-flex flex-row justify-content-between">
+  <span class="navbar-brand mb-0 h1">Lang Prototype</span>
+  <span class="navbar-brand mb-0 h1">Answered: {{ score }}</span>
+</nav>
+
+<div class="container-fluid h-100">
   <div class="row h-100">
     <div class="col ">
-      <div class="row h-100">
+      <div class="row h-100 w-100">
         <div class="d-flex flex-row flex-nowrap h-100 w-100">
-          <div class="justify-content-center align-self-center w-100">
-            <div *ngFor="let q of questions; let i = index;" class="w-100">
-              <div *ngIf="i === currentQuestionIndex" >
-                <app-card [question]="q" (onNext)="next()"></app-card>
-              </div>
+          <ng-container *ngFor="let q of questions; let i = index;">
+            <div *ngIf="i === currentQuestionIndex" class="container align-self-center justify-content-center">
+              <app-card [question]="q" (onNext)="next()" class="w-100 "></app-card>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>

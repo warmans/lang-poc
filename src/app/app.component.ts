@@ -13,10 +13,10 @@ import {animate, group, query, style, transition, trigger} from "@angular/animat
           style({
             transform: 'translateX(100%)'
           }),
-          animate('0.5s ease-out')
+          animate('5s ease-out')
         ]),
         query(':leave', [
-          animate('0.5s ease-out', style({
+          animate('5s ease-out', style({
             transform: 'translateX(-100%)'
           }))
         ], {optional: true})
@@ -57,17 +57,21 @@ export class AppComponent implements OnInit {
       infinitive: "Die Tiere",
       case: "accusative",
       showPlaceholder: false,
+      article: "plural",
     }]
   }];
 
   currentQuestionIndex: number = 0;
 
 
+  score: number = 0;
+
   next() {
     if (this.currentQuestionIndex === this.questions.length - 1) {
       return;
     }
     this.currentQuestionIndex++;
+    this.score++;
   }
 
   ngOnInit(): void {

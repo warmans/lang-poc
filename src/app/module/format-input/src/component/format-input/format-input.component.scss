@@ -1,6 +1,7 @@
 $gender-masculine: #00f !default;
 $gender-feminine: #f0f !default;
 $gender-neutral: #333 !default;
+$gender-plural: #0f0 !default;
 
 .format-input {
   font-family: monospace;
@@ -15,6 +16,7 @@ $gender-neutral: #333 !default;
 
     .editable {
       display: inline-block;
+      background-color: #fff;
       border-bottom: 1px dashed #ccc;
     }
 
@@ -24,6 +26,10 @@ $gender-neutral: #333 !default;
 
     .editable.gender-feminine {
       color: $gender-feminine;
+    }
+
+    .editable.gender-plural {
+      color: $gender-plural;
     }
 
     .editable:empty::before {

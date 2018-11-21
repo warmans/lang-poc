@@ -331,6 +331,6 @@ export interface TokenConfig {
   contextual?: string;
   eng?: string;
   case?: 'nominative' | 'accusative' | 'dative';
-  article?: 'masculine' | 'feminine' | 'neutral';
+  article?: 'masculine' | 'feminine' | 'neutral' | 'plural';
   showPlaceholder?: boolean;
 }
